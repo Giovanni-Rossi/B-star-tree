@@ -13,9 +13,13 @@ int arvB_busca(ArvB *raiz, int valor);
 int arvB_qtd_nos(ArvB *raiz);
 int arvB_qtd_chaves(ArvB *raiz);
 
+void inicializa(struct NO *no);
 void printChaves(ArvB *raiz);
 int compara(const void *a, const void *b);
 int NoFolha(ArvB *no);
 void inicializa(struct NO* no);
-int split2to3(struct NO* raiz, int idxF1, int idxF2, int valor);
+void reequilibra(ArvB* raiz, int pos_pai, int pos_filho);
+void reequilibra_apos_remocao(ArvB* raiz, int pos_pai, int pos_filho);
+void arvB_imprime(ArvB* raiz);
+
 #endif
