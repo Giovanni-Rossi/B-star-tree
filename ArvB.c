@@ -87,11 +87,23 @@ int arvB_insere(ArvB* raiz, int valor){
     for(int j = 0; j < (*raiz)->qtd;j ++)
     {
         if(valor < (*raiz)->chaves[j] && (*raiz)->filhos[j] != NULL)
-            arvB_insere(&(*raiz)->filhos[j], valor);
+        {
+            if((*raiz)->filhos[j]->qtd == ORDEM-1 && (*raiz)->filhos[j+1]->qtd == ORDEM-1)
+                split2to3((*raiz), j, j+1, valor);
+            else
+                arvB_insere(&(*raiz)->filhos[j], valor);
+        }
+            
 
         else if(valor > (*raiz)->chaves[(*raiz)->qtd-1] && (*raiz)->filhos[j+1] != NULL)
-            arvB_insere(&(*raiz)->filhos[j+1], valor);
+        {
+            if((*raiz)->filhos[j]->qtd == ORDEM-1 && (*raiz)->filhos[j+1]->qtd == ORDEM-1)
+                split2to3((*raiz), j, j+1, valor);
+            else
+                arvB_insere(&(*raiz)->filhos[j], valor);
+        }
     }
+
     return 1;
 }
 void printChaves(ArvB *raiz){
@@ -156,7 +168,7 @@ int arvB_busca(ArvB *raiz, int valor) {
 }
 
 int split2to3(struct NO* raiz, int idxF1, int idxF2,  int valor){
-    int total = 2*ORDEM + 2;
+    int total = 2*ORDEM+ 2;
     int auxiliar[total];
     int i = 0, j = 0;
 
@@ -166,6 +178,42 @@ int split2to3(struct NO* raiz, int idxF1, int idxF2,  int valor){
         auxiliar[i] = raiz->filhos[idxF1]->chaves[i];
     
     //insere as chaves da raiz
+    auxiliar[i] = raiz->chaves[0];
+    i++;
+
+    //passa o segundo filho pro auxiliar
+    for(j = 0; j < raiz->filhos[idxF2]->qtd; i++, j++)
+        auxiliar[i] = raiz->filhos[idxF2]->chaves[j];
+
+    //passa a chave e ordena
+    auxiliar[i] = valor;
+    i++;
+    qsort(auxiliar, (size_t)2*ORDEM+2, sizeof(int), compara);
+
+    int divisor = total/3;
+    raiz->chaves[0] = auxiliar[divisor-1];
+    raiz->chaves[1] = auxiliar[(divisor*2)-1];
+    raiz->qtd = 3;
+
+    struct NO* filho3 = malloc(sizeof(struct NO));
     
+    raiz->filhos[0] = raiz->filhos[idxF1];
+    raiz->filhos[1] = raiz->filhos[idxF2];
+    raiz->filhos[3] = filho3;
+
+    raiz->filhos[idxF1]->qtd = 0;
+    for(i = 0; i < divisor-1; i++, raiz->filhos[idxF1]->qtd++)
+        raiz->filhos[idxF1]->chaves[i] = auxiliar[i];
+
+    i++;
+    raiz->filhos[idxF2]->qtd = 0;
+    for(j = 0; i < (divisor*2)-1; i++, raiz->filhos[idxF2]->qtd++, j++)
+        raiz->filhos[idxF2]->chaves[j] = auxiliar[i];
     
+    i++;
+    filho3->qtd = 0;
+    for(j = 0; i < total; i++, filho3->qtd++, j++)
+        filho3->chaves[j] = auxiliar[i];
+    
+    return 1;
 } 

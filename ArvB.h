@@ -17,4 +17,5 @@ void printChaves(ArvB *raiz);
 int compara(const void *a, const void *b);
 int NoFolha(ArvB *no);
 void inicializa(struct NO* no);
+int split2to3(struct NO* raiz, int idxF1, int idxF2, int valor);
 #endif
