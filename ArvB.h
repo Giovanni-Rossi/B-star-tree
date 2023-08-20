@@ -21,5 +21,5 @@ void inicializa(struct NO* no);
 void reequilibra(ArvB* raiz, int pos_pai, int pos_filho);
 void reequilibra_apos_remocao(ArvB* raiz, int pos_pai, int pos_filho);
 void arvB_imprime(ArvB* raiz);
-
+void redistribui(ArvB *irmao1, ArvB *irmao2, int valor);
 #endif

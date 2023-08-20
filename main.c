@@ -3,7 +3,26 @@
 
 int main(void) {
   ArvB *raiz = arvB_cria();
+  arvB_insere(raiz, 0);
+  arvB_insere(raiz, 18);
+  arvB_insere(raiz, 25);
+  arvB_insere(raiz, 27);
+  arvB_insere(raiz, 28);
+  arvB_insere(raiz, 30);
+  arvB_insere(raiz, 1);
+  arvB_insere(raiz, 2);
+  arvB_insere(raiz, 5);
+  arvB_insere(raiz, 7);
+  arvB_imprime(raiz);
+  arvB_insere(raiz, 9);
+  arvB_imprime(raiz);
+  arvB_insere(raiz, 11);
+  arvB_imprime(raiz);
   arvB_insere(raiz, 10);
+  arvB_imprime(raiz);
+  arvB_insere(raiz, 6);
+  arvB_imprime(raiz);
+  /*
   arvB_insere(raiz, 9);
   arvB_insere(raiz, 8);
   arvB_insere(raiz, 7);
@@ -30,7 +49,7 @@ int main(void) {
   arvB_insere(raiz, 17);
   arvB_insere(raiz, 18);
   arvB_imprime(raiz);
-
+  */
   /*
   arvB_remove(raiz, 10);
   arvB_qtd_nos(raiz);
@@ -42,13 +61,13 @@ int main(void) {
   else
     printf("O elemento 10 nao esta presente na arvore B*!\n");
 
-*/
+
   if (arvB_busca(raiz, 20))
     printf("O elemento 20 esta presente na arvore B*!\n");
   else
     printf("O elemento 20 nao esta presente na arvore B*!\n");
 
   arvB_insere(raiz, 19);
-  arvB_imprime(raiz);
+  arvB_imprime(raiz);*/
   return 0;
 }

@@ -177,7 +177,8 @@ int arvB_insere(ArvB *raiz, int valor) {
         // Overflow no filho, chame split2to3
         ArvB auxiliar1 = (*raiz)->filhos[i];
         ArvB auxiliar2 = (*raiz)->filhos[i > 0 ? i - 1 : i + 1];
-        printf("split2to3\n");
+        printf("redistribui para inserir o valor : %d\n", valor);
+        redistribui(&auxiliar1, &auxiliar2, valor);
         //split2to3(&auxiliar1, &auxiliar2, valor);
       } else {
         // Continue a inserção recursivamente
@@ -353,14 +354,16 @@ int alturaNo(ArvB *no) {
     return maxAlturaFilhos + 1;
   }
 }
+
 void redistribui(ArvB *irmao1, ArvB *irmao2, int valor){
     unsigned int tam = (*irmao1)->qtd + (*irmao2)->qtd + 2;//quantidade de cada nó que vai ser distribuido + chave separadora no pai + valor
-    int i;
+    int i , j;
     int *vetAux = malloc(sizeof(int)*tam);
     //passa o primeiro filho pro auxiliar
     for(i = 0; i < (*irmao1)->qtd; i++)
+      {
         vetAux[i] = (*irmao1)->chaves[i];
-
+      }
     //passa o separador vindo do pai
     int ChPai, idxPai;//chave separadora vinda do pai e posicao da chave separadora do pai
     int LimInf = (*irmao1)->chaves[(*irmao1)->qtd-1]; // PEGA O ULTIMO VALOR DO VETOR CHEIO
@@ -376,25 +379,34 @@ void redistribui(ArvB *irmao1, ArvB *irmao2, int valor){
         }
     }
     vetAux[(*irmao1)->qtd] = ChPai; 
-
     //passa o vetor com espaço para o auxiliar
-    for(i = (*irmao1)->qtd+1; i < (*irmao2)->qtd; i++)
+    for(i = (*irmao1)->qtd+1, j = 0; i < (*irmao2)->qtd+(*irmao1)->qtd+1; i++, j++)
     {
-        vetAux[i] = (*irmao2)->chaves[i];
+        vetAux[i] = (*irmao2)->chaves[j];
     } 
     //passa o valor a ser inserido
     vetAux[tam-1] = valor;
     qsort(vetAux, (size_t)tam, sizeof(int), compara);
-    
     //distribuindo entre os vetores
     //primeiro
-    double qtdPrimeiro = ((double)tam)-1;
-    for(int i = 0; i < ceil(qtdPrimeiro); i++)
+    double qtdPrimeiro = (((double)tam)-1)/2.0;
+    (*irmao1)->qtd = 0;
+    for(i = 0; i < ceil(qtdPrimeiro); i++)
     {
-
+        (*irmao1)->chaves[i] = vetAux[i];
+        (*irmao1)->qtd++;
+    }
+    
+    //raiz
+    (*irmao1)->pai->chaves[idxPai] = vetAux[(int)ceil(qtdPrimeiro)];
+    //segundo irmão
+    (*irmao2)->qtd = 0;
+    for(i = ceil(qtdPrimeiro)+1, j= 0; i < tam; i++, j++)
+    {
+        (*irmao2)->chaves[j] = vetAux[i];
+        (*irmao2)->qtd++;
     }
     free(vetAux);
-
 }
 int NoFolha(ArvB *no) {
   if ((*no)->filhos[0] == NULL)
