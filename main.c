@@ -3,24 +3,26 @@
 
 int main(void) {
   ArvB *raiz = arvB_cria();
-  arvB_insere(raiz, 0);
-  arvB_insere(raiz, 18);
-  arvB_insere(raiz, 25);
-  arvB_insere(raiz, 27);
-  arvB_insere(raiz, 28);
-  arvB_insere(raiz, 30);
-  arvB_insere(raiz, 1);
-  arvB_insere(raiz, 2);
-  arvB_insere(raiz, 5);
-  arvB_insere(raiz, 7);
-  arvB_imprime(raiz);
-  arvB_insere(raiz, 9);
-  arvB_imprime(raiz);
-  arvB_insere(raiz, 11);
-  arvB_imprime(raiz);
+  arvB_insere(raiz, 20);
   arvB_insere(raiz, 10);
+  arvB_insere(raiz, 19);
+  arvB_insere(raiz, 9);
+  arvB_insere(raiz, 18);
+  arvB_insere(raiz, 8);
   arvB_imprime(raiz);
-  arvB_insere(raiz, 6);
+  arvB_insere(raiz, 17);
+  arvB_insere(raiz, 7);
+  arvB_insere(raiz, 24);
+  arvB_imprime(raiz);
+  arvB_insere(raiz, 21);
+  arvB_insere(raiz, 22);
+  arvB_insere(raiz, 23);
+  arvB_imprime(raiz);
+  arvB_insere(raiz, 27);
+  arvB_imprime(raiz);
+  arvB_insere(raiz, 12);
+  arvB_imprime(raiz);
+  arvB_insere(raiz, 13);
   arvB_imprime(raiz);
   /*
   arvB_insere(raiz, 9);

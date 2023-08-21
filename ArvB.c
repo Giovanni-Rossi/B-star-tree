@@ -323,6 +323,7 @@ int arvB_qtd_chaves(ArvB *raiz) {
 }
 
 void printChaves(ArvB *raiz) { // printa as chaves de um no
+  printf("Quantidade: %d ", (*raiz)->qtd);
   for (int i = 0; i < (*raiz)->qtd; i++)
     printf("%d ", (*raiz)->chaves[i]);
   printf("\n");
@@ -356,6 +357,16 @@ int alturaNo(ArvB *no) {
 }
 
 void redistribui(ArvB *irmao1, ArvB *irmao2, int valor){
+    if((*irmao1)->chaves[0] > (*irmao2)->chaves[0])
+    {
+      printf("trocou\n");
+      ArvB *aux = malloc(sizeof(ArvB));
+      (*aux) = (*irmao1);
+      (*irmao1) = (*irmao2);
+      (*irmao2) = (*aux);
+      free(aux);
+    }
+    
     unsigned int tam = (*irmao1)->qtd + (*irmao2)->qtd + 2;//quantidade de cada nó que vai ser distribuido + chave separadora no pai + valor
     int i , j;
     int *vetAux = malloc(sizeof(int)*tam);
@@ -431,7 +442,7 @@ void arvB_imprime(ArvB *raiz) {
     printf("\n");
     for (int i = 0; i <= (*raiz)->qtd; i++) {
       if ((*raiz)->filhos[i] != NULL) {
-        printf("Filho %d: ", i + 1);
+        printf("Filho %d (qtd: %d): ", i + 1, (*raiz)->filhos[i]->qtd);
         for (int j = 0; j < (*raiz)->filhos[i]->qtd; j++)
           printf("%d ", (*raiz)->filhos[i]->chaves[j]);
         printf("\n");
